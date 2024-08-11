@@ -28,6 +28,7 @@ private Repositorio repositorio;
 ```
 
 <h1 align="center">Manejo de contextos</h1>
+
 Podríamos no definer ningún contexto explícitamente y queda como `@Dependent`
 
 ```java
