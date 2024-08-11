@@ -86,3 +86,59 @@ private Repositorio repositorio;
   - Una única instancia del bean se crea cuando se inicia la aplicación y se destruye al detenerla.
   - Es ideal para almacenar datos o configuraciones que deben ser compartidos entre todos los usuarios y sesiones.
   - Proporciona un comportamiento similar a un singleton pero gestionado por el contenedor CDI.
+
+<h1 align="center">Anotación @Named</h1>
+
+CDI también nos permite dar nombres a los beans y realizar la inyección mediante el nombre con la anotación `@Named`.
+
+```java
+public interface Repositorio { }
+
+@Named("jdbcRepositorio")
+public class Repositoriolmpl implements Repositorio { }
+```
+
+Luego en el Service lo inyectamos vía nombre del beans
+```java
+public class Servicelmpl implements Service {
+
+@Inject
+@Named("jdbcRepositorio")
+private Repositorio repositorio;
+```
+
+<h1 align="center">Anotación @Produces</h1>
+
+Otra forma para registrar un bean mediante método, el objeto que devuelve este método (anotado con `@Produces`) queda registrado en el contenedor CDI.
+```java
+@Produces
+public Conexion produceConexion() {
+return new Conexion();
+```
+Opcionalmente también puede tener un nombre y contexto
+```java
+@Produces
+@RequestScoped
+@Named("conn")
+public Conexion produceConexion() {
+return new Conexion();
+```
+
+<h1 align="center">Integración con EL (Lenguaje de Expresión)</h1>
+
+También se integra con la librería EL de JSP donde nos permite acceder a métodos y atributos de los beans o componentes CDI mediante el nombre definido con la anotación `@Named`, es decir son asignaciones (o mapping) hacia estos objetos.
+
+```java
+@SessionScoped
+@Named
+public class Carro implements Serializable {
+```
+
+Accedemos al carro en las vistas JSP mediante EL:
+```jsp
+<c:forEach items="${carro.items}" var="item">
+
+</c:forEach>
+
+Total: ${carro.total}
+```
