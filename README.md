@@ -45,3 +45,44 @@ private Repositorio repositorio;
 
 }
 ```
+
+<h1 align="center">Contextos CDI</h1>
+<h2>@Dependent</h2>
+
+- <b>Descripción</b>: El contexto `@Dependent` es el alcance predeterminado de un bean CDI si no se especifica otro alcance.
+- <b>Características</b>:
+  - Un bean con este contexto no tiene ciclo de vida propio; su ciclo de vida está vinculado al objeto que lo inyecta.
+  - Se crea una nueva instancia cada vez que se inyecta el bean.
+  - No tiene almacenamiento de estado, lo que significa que no se mantiene entre invocaciones.
+
+<h2>@RequestScoped</h2>
+
+- <b>Descripción</b>: El contexto `@RequestScoped` define un ciclo de vida que abarca una sola solicitud HTTP.
+- <b>Características</b>:
+  - Una instancia del bean se crea al inicio de una solicitud HTTP y se destruye al final de esa solicitud.
+  - Es útil para almacenar datos temporales que solo son relevantes durante la ejecución de una solicitud.
+  - Se utiliza frecuentemente en aplicaciones web donde se manejan solicitudes HTTP.
+ 
+<h2>@SessionScoped</h2>
+
+- <b>Descripción</b>: El contexto `@SessionScoped` define un ciclo de vida que abarca la sesión de un usuario en una aplicación web.
+- <b>Características</b>:
+  - Una instancia del bean se crea cuando se inicia una sesión HTTP y se destruye cuando la sesión expira o se cierra.
+  - Es adecuado para almacenar datos del usuario que deben persistir mientras dure su sesión.
+  - Los beans en este contexto deben implementar la interfaz `Serializable` para asegurar que pueden ser serializados.
+
+<h2>@ConversationScoped</h2>
+
+- <b>Descripción</b>: El contexto `@ConversationScoped` permite definir un ciclo de vida más largo que una solicitud pero más corto que una sesión.
+- <b>Características</b>:
+  - Permite dividir una interacción de usuario en varias solicitudes HTTP mientras mantiene el estado.
+  - Una conversación puede ser transitoria (dura solo una solicitud) o larga (dura varias solicitudes).
+  - Requiere control explícito del ciclo de vida de la conversación usando la API de conversación de CDI.
+ 
+<h2>@ApplicationScoped</h2>
+
+- <b>Descripción</b>: El contexto `@ApplicationScoped` define un ciclo de vida que abarca toda la aplicación.
+- <b>Características</b>:
+  - Una única instancia del bean se crea cuando se inicia la aplicación y se destruye al detenerla.
+  - Es ideal para almacenar datos o configuraciones que deben ser compartidos entre todos los usuarios y sesiones.
+  - Proporciona un comportamiento similar a un singleton pero gestionado por el contenedor CDI.
