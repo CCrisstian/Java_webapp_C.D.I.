@@ -1,5 +1,7 @@
 package org.CCristian.apiservlet.webapp.headers.controllers;
 
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -7,18 +9,21 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.CCristian.apiservlet.webapp.headers.models.Usuario;
 import org.CCristian.apiservlet.webapp.headers.services.UsuarioService;
-import org.CCristian.apiservlet.webapp.headers.services.UsuarioServiceImpl;
 
 import java.io.IOException;
-import java.sql.Connection;
+
 import java.util.Optional;
 
 @WebServlet("/usuarios/eliminar")
 public class UsuarioEliminarServlet extends HttpServlet {
+
+    @Inject
+    @Named("usuarioServiceImpl")
+    private UsuarioService service;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Connection conn = (Connection) req.getAttribute("conn");    /*Conexión a la Base de Datos*/
-        UsuarioService service = new UsuarioServiceImpl(conn);
+
         long id;
         try {
             id = Long.parseLong(req.getParameter("id"));    /*Obteniendo el 'id' del usuario que se quiere eliminar*/

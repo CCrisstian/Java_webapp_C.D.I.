@@ -1,17 +1,17 @@
 package org.CCristian.apiservlet.webapp.headers.controllers;
 
+import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.CCristian.apiservlet.webapp.headers.configs.ProductoServicePrincipal;
 import org.CCristian.apiservlet.webapp.headers.models.Categoria;
 import org.CCristian.apiservlet.webapp.headers.models.Producto;
 import org.CCristian.apiservlet.webapp.headers.services.ProductoService;
-import org.CCristian.apiservlet.webapp.headers.services.ProductosServiceJdbcImpl;
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -21,10 +21,13 @@ import java.util.Optional;
 
 @WebServlet("/productos/form")
 public class ProductoFormServlet extends HttpServlet {
+
+    @Inject
+    @ProductoServicePrincipal
+    private ProductoService service;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Connection conn = (Connection) req.getAttribute("conn");    /*Conexión a la Base de Datos*/
-        ProductoService service = new ProductosServiceJdbcImpl(conn);
         long id;
         try {
             id = Long.parseLong(req.getParameter("id")); /*Obtiene el 'id' del producto que se quiere Editar*/
@@ -47,8 +50,6 @@ public class ProductoFormServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Connection conn = (Connection) req.getAttribute("conn");    /*Conexión a la Base de Datos*/
-        ProductoService service = new ProductosServiceJdbcImpl(conn);
 
         /*Obteniendo los valores desde el request*/
         String nombre = req.getParameter("nombre");

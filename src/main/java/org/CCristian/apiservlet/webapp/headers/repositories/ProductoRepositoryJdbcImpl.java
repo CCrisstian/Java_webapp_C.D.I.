@@ -1,5 +1,9 @@
 package org.CCristian.apiservlet.webapp.headers.repositories;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import org.CCristian.apiservlet.webapp.headers.configs.MySQLConn;
+import org.CCristian.apiservlet.webapp.headers.configs.Repositorio;
 import org.CCristian.apiservlet.webapp.headers.models.Categoria;
 import org.CCristian.apiservlet.webapp.headers.models.Producto;
 
@@ -7,13 +11,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repositorio
 public class ProductoRepositoryJdbcImpl implements Repository<Producto> {
 
+    @Inject
+    @MySQLConn
     private Connection conn;
-
-    public ProductoRepositoryJdbcImpl(Connection conn) {
-        this.conn = conn;
-    }
 
     @Override
     public List<Producto> listar() throws SQLException {

@@ -1,5 +1,7 @@
 package org.CCristian.apiservlet.webapp.headers.controllers;
 
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -9,18 +11,19 @@ import org.CCristian.apiservlet.webapp.headers.models.Usuario;
 import org.CCristian.apiservlet.webapp.headers.services.*;
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 @WebServlet("/usuarios")
 public class UsuarioServlet extends HttpServlet {
+
+    @Inject
+    @Named("usuarioServiceImpl")
+    private UsuarioService service;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        Connection conn = (Connection) req.getAttribute("conn"); /*Obtiene la conexión a la Base de Datos*/
-        UsuarioService service = new UsuarioServiceImpl(conn);
 
         List<Usuario> usuarios = null;  /*Obtiene una lista con los Usuarios*/
         try {

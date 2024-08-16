@@ -1,18 +1,20 @@
 package org.CCristian.apiservlet.webapp.headers.repositories;
 
+import jakarta.inject.Inject;
+import org.CCristian.apiservlet.webapp.headers.configs.MySQLConn;
+import org.CCristian.apiservlet.webapp.headers.configs.Repositorio;
 import org.CCristian.apiservlet.webapp.headers.models.Usuario;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repositorio
 public class UsuarioRepositoryImpl implements UsuarioRepository {
 
+    @Inject
+    @MySQLConn
     private Connection conn;
-
-    public UsuarioRepositoryImpl(Connection conn) {
-        this.conn = conn;
-    }
 
     @Override
     public Usuario porUsername(String username) throws SQLException {

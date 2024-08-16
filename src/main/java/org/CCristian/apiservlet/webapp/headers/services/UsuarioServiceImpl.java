@@ -1,20 +1,24 @@
 package org.CCristian.apiservlet.webapp.headers.services;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.CCristian.apiservlet.webapp.headers.models.Usuario;
 import org.CCristian.apiservlet.webapp.headers.repositories.UsuarioRepository;
-import org.CCristian.apiservlet.webapp.headers.repositories.UsuarioRepositoryImpl;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+@ApplicationScoped
+@Named
 public class UsuarioServiceImpl implements UsuarioService {
 
     private UsuarioRepository usuarioRepository;
 
-    public UsuarioServiceImpl(Connection connection) {
-        this.usuarioRepository = new UsuarioRepositoryImpl(connection); /*Inicializando con la conexión a la BD*/
+    @Inject
+    public UsuarioServiceImpl(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
     }
 
     @Override

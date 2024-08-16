@@ -1,10 +1,14 @@
 package org.CCristian.apiservlet.webapp.headers.models;
 
+import org.CCristian.apiservlet.webapp.headers.configs.CarroCompra;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class Carro {
+@CarroCompra
+public class Carro implements Serializable {
     private List<ItemCarro> items;
 
     public Carro() {

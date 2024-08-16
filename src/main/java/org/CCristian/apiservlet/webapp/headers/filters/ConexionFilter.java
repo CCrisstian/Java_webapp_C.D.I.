@@ -1,18 +1,22 @@
 package org.CCristian.apiservlet.webapp.headers.filters;
 
+import jakarta.inject.Inject;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletResponse;
+import org.CCristian.apiservlet.webapp.headers.configs.MySQLConn;
 import org.CCristian.apiservlet.webapp.headers.services.ServiceJdbcException;
-import org.CCristian.apiservlet.webapp.headers.util.ConexionBaseDatosDS;
 
-import javax.naming.NamingException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
 @WebFilter("/*")
 public class ConexionFilter implements Filter {
+
+    @Inject
+    @MySQLConn
+    private Connection conn;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -26,20 +30,21 @@ public class ConexionFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
-        try (Connection conn = ConexionBaseDatosDS.getConection()){
-            if (conn.getAutoCommit()){
-                conn.setAutoCommit(false);
+        try{
+            Connection connRequest = this.conn;
+
+            if (connRequest.getAutoCommit()){
+                connRequest.setAutoCommit(false);
             }
             try {
-                request.setAttribute("conn", conn);
                 chain.doFilter(request, response);
-                conn.commit();
+                connRequest.commit();
             } catch (SQLException | ServiceJdbcException e){
-                conn.rollback();
+                connRequest.rollback();
                 ((HttpServletResponse)response).sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
                 e.printStackTrace();
             }
-        } catch (SQLException | NamingException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }

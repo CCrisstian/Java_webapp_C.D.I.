@@ -1,16 +1,21 @@
 package org.CCristian.apiservlet.webapp.headers.repositories;
 
+import jakarta.inject.Inject;
+import org.CCristian.apiservlet.webapp.headers.configs.MySQLConn;
+import org.CCristian.apiservlet.webapp.headers.configs.Repositorio;
 import org.CCristian.apiservlet.webapp.headers.models.Categoria;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoriaRepositoryImpl implements Repository<Categoria>{
+@Repositorio
+public class CategoriaRepositoryImpl implements Repository<Categoria> {
 
     private Connection conn;
 
-    public CategoriaRepositoryImpl(Connection conn) {
+    @Inject
+    public CategoriaRepositoryImpl(@MySQLConn Connection conn) {
         this.conn = conn;
     }
 
@@ -18,8 +23,8 @@ public class CategoriaRepositoryImpl implements Repository<Categoria>{
     public List<Categoria> listar() throws SQLException {
         List<Categoria> categorias = new ArrayList<>();
         try (Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * FROM categorias")){
-            while (rs.next()){
+             ResultSet rs = stmt.executeQuery("SELECT * FROM categorias")) {
+            while (rs.next()) {
                 Categoria categoria = getCategoria(rs);
                 categorias.add(categoria);
             }
@@ -31,10 +36,10 @@ public class CategoriaRepositoryImpl implements Repository<Categoria>{
     @Override
     public Categoria porId(Long id) throws SQLException {
         Categoria categoria = new Categoria();
-        try (PreparedStatement stmt = conn.prepareStatement("SELECT * FROM categorias AS c WHERE c.id=?")){
+        try (PreparedStatement stmt = conn.prepareStatement("SELECT * FROM categorias AS c WHERE c.id=?")) {
             stmt.setLong(1, id);
-            try (ResultSet rs = stmt.executeQuery()){
-                if (rs.next()){
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
                     categoria = getCategoria(rs);
                 }
             }

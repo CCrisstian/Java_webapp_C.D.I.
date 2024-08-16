@@ -1,11 +1,12 @@
 package org.CCristian.apiservlet.webapp.headers.controllers;
 
+import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+
 import org.CCristian.apiservlet.webapp.headers.models.Carro;
 
 import java.io.IOException;
@@ -15,14 +16,18 @@ import java.util.List;
 
 @WebServlet("/carro/actualizar")
 public class ActualizarCarroServlet extends HttpServlet {
+
+    @Inject
+    private Carro carro;
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        if (session.getAttribute("carro") != null) {
-            Carro carro = (Carro) session.getAttribute("carro");
+//        HttpSession session = req.getSession();
+//        if (session.getAttribute("carro") != null) {
+//            CarroCompra carro = (CarroCompra) session.getAttribute("carro");
             updateProductos(req, carro);
             updateCantidades(req, carro);
-        }
+//        }
         resp.sendRedirect(req.getContextPath() + "/carro/ver");
     }
 

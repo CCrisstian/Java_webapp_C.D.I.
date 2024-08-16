@@ -1,25 +1,25 @@
 package org.CCristian.apiservlet.webapp.headers.services;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import org.CCristian.apiservlet.webapp.headers.configs.ProductoServicePrincipal;
 import org.CCristian.apiservlet.webapp.headers.models.Categoria;
 import org.CCristian.apiservlet.webapp.headers.models.Producto;
-import org.CCristian.apiservlet.webapp.headers.repositories.CategoriaRepositoryImpl;
-import org.CCristian.apiservlet.webapp.headers.repositories.ProductoRepositoryJdbcImpl;
 import org.CCristian.apiservlet.webapp.headers.repositories.Repository;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+@ApplicationScoped
+@ProductoServicePrincipal
 public class ProductosServiceJdbcImpl implements ProductoService{
 
+    @Inject
     private Repository<Producto> repositoryJdbc;
-    private Repository<Categoria> repositoryCategoriaJdbc;
 
-    public ProductosServiceJdbcImpl(Connection connection) {
-        this.repositoryJdbc = new ProductoRepositoryJdbcImpl(connection);
-        this.repositoryCategoriaJdbc = new CategoriaRepositoryImpl(connection);
-    }
+    @Inject
+    private Repository<Categoria> repositoryCategoriaJdbc;
 
     @Override
     public List<Producto> listar(){
