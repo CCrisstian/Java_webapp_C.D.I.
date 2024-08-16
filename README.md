@@ -143,3 +143,15 @@ Accedemos al carro en las vistas JSP mediante EL:
 
 Total: ${carro.total}
 ```
+
+<h1 align="center">pom.xml</h1>
+
+pom.xml
+```xml
+        <dependency>
+            <groupId>org.jboss.weld.servlet</groupId>
+            <artifactId>weld-servlet-core</artifactId>
+            <version>5.1.1.SP1</version>
+        </dependency>
+```
+Al incluir esta dependencia en el pom.xml, la aplicación web puede aprovechar las capacidades de CDI para gestionar la inyección de dependencias y el ciclo de vida de los beans. Esto facilita el desarrollo de aplicaciones más modulares, mantenibles y escalables, ya que se puede desacoplar componentes y dejar que el contenedor de CDI gestione sus dependencias.
