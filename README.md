@@ -164,6 +164,37 @@ public @interface CarroCompra {
 - `@Target(ElementType.TYPE)`: especifica que `@CarroCompra` solo se puede aplicar a tipos, es decir, a clases o interfaces. Esto significa que no se puede aplicar `@CarroCompra` a métodos, campos, o parámetros; solo puede ser utilizada para anotar clases o interfaces.
 - `public @interface CarroCompra {}`: Define una nueva anotación personalizada llamada `CarroCompra`. Esta anotación puede ser utilizada para marcar clases o interfaces en el código. Cuando se usa `@CarroCompra` en una clase, automáticamente aplicará las características de las anotaciones `@SessionScoped` y `@Stereotype` a esa clase, así como cualquier otro comportamiento asociado con el estereotipo.
 
+<h1 align="center">Anotación @Disposes</h1>
+
+La anotación `@Disposes` se utiliza en el mecanismo de inyección de dependencias para liberar o limpiar recursos que han sido previamente creados o inyectados mediante un método productor.
+
+- Liberación de Recursos: Cuando un bean necesita liberar un recurso específico, el método que realiza esta acción se marca con `@Disposes`. Este método es llamado automáticamente por el contenedor CDI cuando el contexto del bean termina y el recurso debe ser destruido.
+- Emparejamiento con Métodos Productores: La anotación `@Disposes` siempre se usa en combinación con un método productor (`@Produces`). Mientras que el método productor crea o provee una instancia de un recurso (como un objeto de conexión), el método marcado con `@Disposes` realiza la tarea de limpieza o destrucción de dicho recurso.
+
+```java
+public class ProducerResources {
+
+    @Resource(name = "jdbc/mysqlDB")
+    private DataSource ds;
+
+    @Produces
+    @RequestScoped
+    @MySQLConn
+    private Connection beanConnection() throws NamingException, SQLException {
+        return ds.getConnection();
+    }
+
+    public void close(@Disposes @MySQLConn Connection connection) throws SQLException {
+        connection.close();
+    }
+}
+```
+Función del Método `close`
+Este método tiene la responsabilidad de cerrar la conexión a la base de datos cuando ya no se necesita.
+- `@Disposes`:
+  - <b>Función</b>: Indica que este método se utiliza para liberar un recurso que fue previamente producido por un método productor (en este caso, el método `beanConnection`).
+  - <b>Contexto</b>: En CDI, cuando un bean de tipo Connection ya no es necesario, el contenedor CDI llama automáticamente a este método para liberar la conexión.
+
 <h1 align="center">Integración con 'EL' (Lenguaje de Expresión)</h1>
 
 También se integra con la librería EL de JSP donde nos permite acceder a métodos y atributos de los beans o componentes CDI mediante el nombre definido con la anotación `@Named`, es decir son asignaciones (o mapping) hacia estos objetos.
