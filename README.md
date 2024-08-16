@@ -125,7 +125,23 @@ public Conexion produceConexion() {
 return new Conexion();
 ```
 
-<h1 align="center">Integración con EL (Lenguaje de Expresión)</h1>
+<h1 align="center">Anotación @Qualifier</h1>
+
+Cuando se tiene varias implementaciones de una misma interfaz o clase, y se desea inyectar una de esas implementaciones específicas en un punto particular del código, se utiliza un `@Qualifier` para indicar cuál de las implementaciones debe ser inyectada. Esto ayuda a evitar ambigüedades cuando el contenedor de C.D.I. tiene que decidir qué `bean` inyectar.
+
+```java
+@Qualifier
+@Retention(RetentionPolicy.RUNTIME) /*Se aplica en tiempo de ejecución*/
+@Target({METHOD, FIELD, PARAMETER, TYPE})   /*Donde se aplicará*/
+public @interface ProductoServicePrincipal {
+}
+```
+
+- `@Qualifier`: La anotación que se está creando se utilizará para distinguir entre diferentes implementaciones de un bean a la hora de realizar inyecciones.
+- `@Retention(RetentionPolicy.RUNTIME)`: Especifica que la anotación estará disponible en tiempo de ejecución. Esto es necesario para que el contenedor de CDI pueda leer y procesar la anotación cuando se ejecuta la aplicación.
+- `@Target({METHOD, FIELD, PARAMETER, TYPE})`: Indica los elementos del código en los que esta anotación puede aplicarse. En este caso, puede ser aplicada a métodos (`METHOD`), campos (`FIELD`), parámetros (`PARAMETER`), y tipos de clase (`TYPE`).
+
+<h1 align="center">Integración con 'EL' (Lenguaje de Expresión)</h1>
 
 También se integra con la librería EL de JSP donde nos permite acceder a métodos y atributos de los beans o componentes CDI mediante el nombre definido con la anotación `@Named`, es decir son asignaciones (o mapping) hacia estos objetos.
 
