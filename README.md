@@ -153,16 +153,16 @@ public @interface ProductoServicePrincipal {
 @Stereotype
 @Retention(RUNTIME)
 @Target(ElementType.TYPE)
-public @interface Carro {
+public @interface CarroCompra {
 }
 ```
 
-- `@SessionScoped`: indica que cualquier bean anotado con `@Carro` tendrá un alcance de sesión. Un bean con alcance de sesión (`@SessionScoped`) se mantiene vivo y su estado se preserva durante toda la duración de la sesión del usuario en una aplicación web. Esto significa que el bean estará disponible mientras dure la sesión HTTP del usuario.
+- `@SessionScoped`: indica que cualquier bean anotado con `@CarroCompra` tendrá un alcance de sesión. Un bean con alcance de sesión (`@SessionScoped`) se mantiene vivo y su estado se preserva durante toda la duración de la sesión del usuario en una aplicación web. Esto significa que el bean estará disponible mientras dure la sesión HTTP del usuario.
 - `@Named`: permite que el bean sea accesible en la capa de presentación, como en las páginas JSF (JavaServer Faces). Esto significa que el bean puede ser referenciado en expresiones EL (Expression Language) dentro de archivos `.xhtml` o .`jsp` usando su nombre de clase en minúsculas, a menos que se le asigne un nombre explícito.
-- `@Stereotype`: marca `@Carro` como un estereotipo. Al marcar `@Carro` con `@Stereotype`, se está diciendo que esta anotación se comportará como un estereotipo, permitiendo la reutilización de configuraciones comunes.
-- `@Retention(RUNTIME)`: indica que la nueva anotación `@Carro` estará disponible en tiempo de ejecución. Esto es necesario para que el contenedor CDI pueda leer y procesar la anotación mientras la aplicación está en ejecución, permitiendo que se apliquen los comportamientos y configuraciones definidas.
-- `@Target(ElementType.TYPE)`: especifica que `@Carro` solo se puede aplicar a tipos, es decir, a clases o interfaces. Esto significa que no se puede aplicar `@Carro` a métodos, campos, o parámetros; solo puede ser utilizada para anotar clases o interfaces.
-- `public @interface Carro {}`: Define una nueva anotación personalizada llamada `Carro`. Esta anotación puede ser utilizada para marcar clases o interfaces en el código. Cuando se usa `@Carro` en una clase, automáticamente aplicará las características de las anotaciones `@SessionScoped` y `@Stereotype` a esa clase, así como cualquier otro comportamiento asociado con el estereotipo.
+- `@Stereotype`: marca `@CarroCompra` como un estereotipo. Al marcar `@CarroCompra` con `@Stereotype`, se está diciendo que esta anotación se comportará como un estereotipo, permitiendo la reutilización de configuraciones comunes.
+- `@Retention(RUNTIME)`: indica que la nueva anotación `@CarroCompra` estará disponible en tiempo de ejecución. Esto es necesario para que el contenedor CDI pueda leer y procesar la anotación mientras la aplicación está en ejecución, permitiendo que se apliquen los comportamientos y configuraciones definidas.
+- `@Target(ElementType.TYPE)`: especifica que `@CarroCompra` solo se puede aplicar a tipos, es decir, a clases o interfaces. Esto significa que no se puede aplicar `@CarroCompra` a métodos, campos, o parámetros; solo puede ser utilizada para anotar clases o interfaces.
+- `public @interface CarroCompra {}`: Define una nueva anotación personalizada llamada `CarroCompra`. Esta anotación puede ser utilizada para marcar clases o interfaces en el código. Cuando se usa `@CarroCompra` en una clase, automáticamente aplicará las características de las anotaciones `@SessionScoped` y `@Stereotype` a esa clase, así como cualquier otro comportamiento asociado con el estereotipo.
 
 <h1 align="center">Integración con 'EL' (Lenguaje de Expresión)</h1>
 
