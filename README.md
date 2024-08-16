@@ -131,8 +131,8 @@ Cuando se tiene varias implementaciones de una misma interfaz o clase, y se dese
 
 ```java
 @Qualifier
-@Retention(RetentionPolicy.RUNTIME) /*Se aplica en tiempo de ejecución*/
-@Target({METHOD, FIELD, PARAMETER, TYPE})   /*Donde se aplicará*/
+@Retention(RetentionPolicy.RUNTIME)
+@Target({METHOD, FIELD, PARAMETER, TYPE})
 public @interface ProductoServicePrincipal {
 }
 ```
