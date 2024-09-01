@@ -224,3 +224,29 @@ Accedemos al carro en las vistas JSP mediante EL:
 
 Total: ${carro.total}
 ```
+
+<h1 align="center">Anotación @PostConstruct y @PreDestroy</h1>
+
+En el contexto de <b>CDI (Contexts and Dependency Injection)</b> en Java, las anotaciones `@PostConstruct` y `@PreDestroy` se utilizan para definir métodos que deben ejecutarse en momentos específicos del ciclo de vida de un bean.
+
+<h2>@PostConstruct</h2>
+- <b>Cuándo se ejecuta</b>: Después de que el contenedor CDI ha inyectado todas las dependencias en el bean, pero antes de que el bean esté disponible para su uso por otros componentes.
+- <b>Propósito</b>: Se utiliza para realizar cualquier inicialización necesaria que dependa de las inyecciones de dependencias. Es como un constructor extendido, donde ya se tiene acceso a los recursos inyectados.
+
+```java
+@PostConstruct
+public void init() {
+    // Código de inicialización aquí
+}
+```
+
+<h2>@PreDestroy</h2>
+- <b>Cuándo se ejecuta</b>: Justo antes de que el contenedor CDI destruya el bean.
+- <b>Propósito</b>: Se utiliza para realizar cualquier limpieza de recursos, como cerrar conexiones de base de datos o liberar otros recursos que el bean pudo haber adquirido durante su vida útil.
+
+```java
+@PreDestroy
+public void cleanup() {
+    // Código de limpieza aquí
+}
+```
