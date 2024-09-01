@@ -7,6 +7,17 @@
 <p><b>'Inyectar es justamente suministrar a un objeto una referencia de otros que necesite según la relación, tiene que plasmarse mediante la anotación @Inject'</b></p>
 <h1 align="center">Características CDI</h1>
 <p align="center"><img width="719" alt="image" src="https://github.com/user-attachments/assets/d73fb364-a22b-4b7f-9dc8-1eeb30bab9d6"></p>
+<h1 align="center">pom.xml</h1>
+
+```xml
+        <dependency>
+            <groupId>org.jboss.weld.servlet</groupId>
+            <artifactId>weld-servlet-core</artifactId>
+            <version>5.1.1.SP1</version>
+        </dependency>
+```
+Al incluir esta dependencia en el `pom.xml`, la aplicación web puede aprovechar las capacidades de CDI para gestionar la inyección de dependencias y el ciclo de vida de los beans. Esto facilita el desarrollo de aplicaciones más modulares, mantenibles y escalables, ya que se puede desacoplar componentes y dejar que el contenedor de CDI gestione sus dependencias.
+
 <h1 align="center">Registrar e inyectar</h1>
 <h2>Registrar o publicar un bean:</h2>
 
@@ -214,13 +225,30 @@ Accedemos al carro en las vistas JSP mediante EL:
 Total: ${carro.total}
 ```
 
-<h1 align="center">pom.xml</h1>
+<h1 align="center">Anotación @PostConstruct y @PreDestroy</h1>
 
-```xml
-        <dependency>
-            <groupId>org.jboss.weld.servlet</groupId>
-            <artifactId>weld-servlet-core</artifactId>
-            <version>5.1.1.SP1</version>
-        </dependency>
+En el contexto de <b>CDI (Contexts and Dependency Injection)</b> en Java, las anotaciones `@PostConstruct` y `@PreDestroy` se utilizan para definir métodos que deben ejecutarse en momentos específicos del ciclo de vida de un bean.
+
+<h2>@PostConstruct</h2>
+
+- <b>Cuándo se ejecuta</b>: Después de que el contenedor CDI ha inyectado todas las dependencias en el bean, pero antes de que el bean esté disponible para su uso por otros componentes.
+- <b>Propósito</b>: Se utiliza para realizar cualquier inicialización necesaria que dependa de las inyecciones de dependencias. Es como un constructor extendido, donde ya se tiene acceso a los recursos inyectados.
+
+```java
+@PostConstruct
+public void init() {
+    // Código de inicialización aquí
+}
 ```
-Al incluir esta dependencia en el `pom.xml`, la aplicación web puede aprovechar las capacidades de CDI para gestionar la inyección de dependencias y el ciclo de vida de los beans. Esto facilita el desarrollo de aplicaciones más modulares, mantenibles y escalables, ya que se puede desacoplar componentes y dejar que el contenedor de CDI gestione sus dependencias.
+
+<h2>@PreDestroy</h2>
+
+- <b>Cuándo se ejecuta</b>: Justo antes de que el contenedor CDI destruya el bean.
+- <b>Propósito</b>: Se utiliza para realizar cualquier limpieza de recursos, como cerrar conexiones de base de datos o liberar otros recursos que el bean pudo haber adquirido durante su vida útil.
+
+```java
+@PreDestroy
+public void cleanup() {
+    // Código de limpieza aquí
+}
+```
