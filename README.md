@@ -7,6 +7,17 @@
 <p><b>'Inyectar es justamente suministrar a un objeto una referencia de otros que necesite según la relación, tiene que plasmarse mediante la anotación @Inject'</b></p>
 <h1 align="center">Características CDI</h1>
 <p align="center"><img width="719" alt="image" src="https://github.com/user-attachments/assets/d73fb364-a22b-4b7f-9dc8-1eeb30bab9d6"></p>
+<h1 align="center">pom.xml</h1>
+
+```xml
+        <dependency>
+            <groupId>org.jboss.weld.servlet</groupId>
+            <artifactId>weld-servlet-core</artifactId>
+            <version>5.1.1.SP1</version>
+        </dependency>
+```
+Al incluir esta dependencia en el `pom.xml`, la aplicación web puede aprovechar las capacidades de CDI para gestionar la inyección de dependencias y el ciclo de vida de los beans. Esto facilita el desarrollo de aplicaciones más modulares, mantenibles y escalables, ya que se puede desacoplar componentes y dejar que el contenedor de CDI gestione sus dependencias.
+
 <h1 align="center">Registrar e inyectar</h1>
 <h2>Registrar o publicar un bean:</h2>
 
@@ -213,14 +224,3 @@ Accedemos al carro en las vistas JSP mediante EL:
 
 Total: ${carro.total}
 ```
-
-<h1 align="center">pom.xml</h1>
-
-```xml
-        <dependency>
-            <groupId>org.jboss.weld.servlet</groupId>
-            <artifactId>weld-servlet-core</artifactId>
-            <version>5.1.1.SP1</version>
-        </dependency>
-```
-Al incluir esta dependencia en el `pom.xml`, la aplicación web puede aprovechar las capacidades de CDI para gestionar la inyección de dependencias y el ciclo de vida de los beans. Esto facilita el desarrollo de aplicaciones más modulares, mantenibles y escalables, ya que se puede desacoplar componentes y dejar que el contenedor de CDI gestione sus dependencias.
