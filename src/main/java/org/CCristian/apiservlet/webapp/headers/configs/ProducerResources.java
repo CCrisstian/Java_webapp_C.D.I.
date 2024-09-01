@@ -5,11 +5,14 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.inject.Disposes;
 import jakarta.enterprise.inject.Produces;
+import jakarta.enterprise.inject.spi.InjectionPoint;
+import jakarta.inject.Inject;
 
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
 /*Conexión a la BASE DE DATOS usando C.D.I.*/
 @ApplicationScoped
@@ -18,7 +21,10 @@ public class ProducerResources {
     @Resource(name = "jdbc/mysqlDB")
     private DataSource ds;
 
-    /*Devuelve la conexión a la BD*/
+    @Inject
+    private Logger log;
+
+    /*Devuelve la conexión a la BaseDeDatos*/
     @Produces
     @RequestScoped
     @MySQLConn
@@ -26,8 +32,14 @@ public class ProducerResources {
         return ds.getConnection();
     }
 
+    /*Cierra la conexión a la BaseDeDatos*/
     public void close(@Disposes @MySQLConn Connection connection) throws SQLException {
         connection.close();
-        System.out.println("Cerrando la conexión a la BD MySQL");   /*Para visualizarlo en la consola de 'Tomcat'*/
+        log.info("Cerrando la conexión a la BD MySQL");   /*Para visualizarlo en la consola de 'Tomcat'*/
+    }
+
+    @Produces
+    private Logger beanLogger(InjectionPoint injectionPoint){
+        return Logger.getLogger(injectionPoint.getMember().getDeclaringClass().getName());
     }
 }

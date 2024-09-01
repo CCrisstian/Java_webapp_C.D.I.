@@ -2,14 +2,14 @@ package org.CCristian.apiservlet.webapp.headers.repositories;
 
 import jakarta.inject.Inject;
 import org.CCristian.apiservlet.webapp.headers.configs.MySQLConn;
-import org.CCristian.apiservlet.webapp.headers.configs.Repositorio;
+import org.CCristian.apiservlet.webapp.headers.configs.Repository;
 import org.CCristian.apiservlet.webapp.headers.models.Usuario;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repositorio
+@Repository
 public class UsuarioRepositoryImpl implements UsuarioRepository {
 
     @Inject

@@ -1,18 +1,33 @@
 package org.CCristian.apiservlet.webapp.headers.models;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.inject.Inject;
 import org.CCristian.apiservlet.webapp.headers.configs.CarroCompra;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 @CarroCompra
 public class Carro implements Serializable {
     private List<ItemCarro> items;
 
-    public Carro() {
+    @Inject
+    private transient Logger log;
+    /*Se inyecta el Logger usando 'transient' pero no forma parte de la session del Carro*/
+
+    @PostConstruct
+    public void inicializar(){
         this.items = new ArrayList<>();
+        log.info("Inicializando el Carro de Compra");
+    }
+
+    @PreDestroy
+    public void destruir(){
+        log.info("Destruyendo el Carro de Compra");
     }
 
     public void addItemCarro(ItemCarro itemCarro) {
