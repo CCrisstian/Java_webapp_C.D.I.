@@ -1,8 +1,8 @@
 package org.CCristian.apiservlet.webapp.headers.services;
 
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.CCristian.apiservlet.webapp.headers.configs.ProductoServicePrincipal;
+import org.CCristian.apiservlet.webapp.headers.configs.Service;
 import org.CCristian.apiservlet.webapp.headers.models.Categoria;
 import org.CCristian.apiservlet.webapp.headers.models.Producto;
 import org.CCristian.apiservlet.webapp.headers.repositories.CrudRepository;
@@ -11,9 +11,9 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-@ApplicationScoped
+@Service
 @ProductoServicePrincipal
-public class ProductosServiceJdbcImpl implements ProductoService{
+public class ProductosServiceJdbcImpl implements ProductoService {
 
     @Inject
     private CrudRepository<Producto> repositoryJdbc;
@@ -22,7 +22,7 @@ public class ProductosServiceJdbcImpl implements ProductoService{
     private CrudRepository<Categoria> repositoryCategoriaJdbc;
 
     @Override
-    public List<Producto> listar(){
+    public List<Producto> listar() {
         try {
             return repositoryJdbc.listar();
         } catch (SQLException throwables) {

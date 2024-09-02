@@ -1,8 +1,7 @@
 package org.CCristian.apiservlet.webapp.headers.services;
 
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.inject.Named;
+import org.CCristian.apiservlet.webapp.headers.configs.Service;
 import org.CCristian.apiservlet.webapp.headers.models.Usuario;
 import org.CCristian.apiservlet.webapp.headers.repositories.UsuarioRepository;
 
@@ -10,8 +9,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-@ApplicationScoped
-@Named
+@Service
 public class UsuarioServiceImpl implements UsuarioService {
 
     private UsuarioRepository usuarioRepository;
