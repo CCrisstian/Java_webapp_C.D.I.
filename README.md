@@ -252,3 +252,51 @@ public void cleanup() {
     // Código de limpieza aquí
 }
 ```
+
+<h1 align="center">Interceptores C.D.I.</h1>
+<p>Los <b>Interceptores CDI (Contexts and Dependency Injection)</b> son una característica en Java que permite interceptar y gestionar la ejecución de métodos de los beans CDI. Un interceptor es una clase que contiene lógica que se ejecuta antes o después de que un método de un bean sea invocado, o incluso alrededor de la ejecución del método.</p>
+<h2>¿Para qué sirven los Interceptores CDI?</h2>
+<p>Los interceptores se utilizan para agregar comportamiento adicional a los métodos de los beans sin modificar el código del propio método. Esto es particularmente útil para implementar funcionalidades transversales, como:</p>
+
+- <b>Gestión de transacciones</b>: Iniciar y finalizar una transacción antes y después de ejecutar un método.
+- <b>Manejo de excepciones</b>: Capturar y gestionar excepciones lanzadas por un método.
+- <b>Auditoría y logging</b>: Registrar las llamadas a métodos y sus parámetros o resultados.
+- <b>Control de seguridad</b>: Verificar permisos antes de que se ejecute un método.
+
+<h2>¿Cómo funcionan?</h2>
+<p>Para usar interceptores, se debe seguir estos pasos:</p>
+
+- <b>Definir un interceptor</b>: Se crea una clase que implemente la interfaz `javax.interceptor.Interceptor`. En esa clase se definen los métodos que contienen la lógica que se ejecutará antes, después, o alrededor del método interceptado.
+
+- <b>Anotar el interceptor</b>: Los métodos del interceptor se anotan con `@AroundInvoke` para indicar que deben interceptar la ejecución de métodos.
+```java
+@Interceptor
+@Logged
+public class LoggingInterceptor {
+
+    @AroundInvoke
+    public Object logMethod(InvocationContext context) throws Exception {
+        System.out.println("Método llamado: " + context.getMethod().getName());
+        Object result = context.proceed(); // Ejecuta el método original
+        System.out.println("Método finalizado: " + context.getMethod().getName());
+        return result;
+    }
+}
+```
+- <b>Activar el interceptor</b>: El interceptor se asocia con un bean o un método del bean utilizando una anotación personalizada. La anotación debe estar marcada con `@InterceptorBinding`.
+```java
+@Inherited
+@InterceptorBinding
+@Target({ElementType.METHOD, ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Logged {
+}
+```
+- <b>Declarar el interceptor</b>: Finalmente, el interceptor debe ser declarado en el archivo `beans.xml` para que CDI lo reconozca y lo aplique.
+```xml
+<beans>
+    <interceptors>
+        <class>com.ejemplo.LoggingInterceptor</class>
+    </interceptors>
+</beans>
+```
