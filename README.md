@@ -293,7 +293,7 @@ public @interface Logged {
 }
 ```
 - <b>Declarar el interceptor</b>: Finalmente, el interceptor debe ser declarado en el archivo `beans.xml` para que CDI lo reconozca y lo aplique.
-```java
+```xml
 <beans>
     <interceptors>
         <class>com.ejemplo.LoggingInterceptor</class>
