@@ -300,26 +300,3 @@ public @interface Logged {
     </interceptors>
 </beans>
 ```
-
-<h1 align="center">Asociaciones: @ManyToOne, @OneToMany, @OneToOne, @ManyToMany</h1>
-<p>En Hibernate y JPA, las asociaciones o relaciones entre entidades permiten modelar cómo las clases Java (entidades) se relacionan entre sí, reflejando las relaciones entre tablas de la base de datos. A continuación, se explican los tipos más comunes de asociaciones:</p>
-
-<h2>@ManyToOne (Muchos a Uno)</h2>
-
-- Esta asociación indica que muchas instancias de una entidad están relacionadas con una instancia de otra entidad.
-- Se representa con una clave foránea en la tabla de la entidad "muchos".
-
-<h2>@OneToMany (Uno a Muchos)</h2>
-
-- Representa una relación donde <b>una</b> instancia de una entidad está relacionada con <b>muchas</b> instancias de otra entidad.
-- Es el inverso de la relación `@ManyToOne` y generalmente se mapea junto con esta.
-
-<h2>@OneToOne (Uno a Uno)</h2>
-
-- Define una relación donde <b>una</b> instancia de una entidad está relacionada con una <b>sola</b> instancia de otra entidad.
-- Esta relación suele utilizarse cuando una tabla tiene una dependencia de uno a uno con otra tabla.
-
-<h2>@ManyToMany (Muchos a Muchos)</h2>
-
-- Define una relación donde <b>muchas</b> instancias de una entidad están relacionadas con <b>muchas</b> instancias de otra entidad.
-- Normalmente, esto se mapea con una tabla intermedia que contiene las claves foráneas de ambas tablas.
